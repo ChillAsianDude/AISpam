@@ -9,60 +9,53 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-
     <title>{% block title %}Home{% endblock %}</title>
   </head>
 
   <body>
-    <!-- creeating navbar-->
+    <!-- creating navbar-->
+    {% if user.is_authenticated %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <button
           class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbar"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbar">
-          <div class="navbar-nav">
-            {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-item nav-link" id="home" href="/explore">Explore</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-item nav-link" id="learning" href="/learning"
-                >Learning</a
+              <a class="nav-link" id="home" aria-current="page" href="/"
+                >Home</a
               >
             </li>
-
             <li class="nav-item">
-              <a class="nav-item nav-link" id="home" href="/">Home</a>
+              <a class="nav-link" id="explore" href="/explore">Explore</a>
             </li>
-
             <li class="nav-item">
-              <a class="nav-item nav-link" id="more" href="/challenge"
-                >Challenge</a
-              >
+              <a class="nav-link" id="learning" href="/learning">Learning</a>
             </li>
-
             <li class="nav-item">
-              <a class="nav-item nav-link" id="challenge" href="/more">More</a>
+              <a class="nav-link" id="forum" href="/forum">Forum</a>
             </li>
 
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
-                id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Welcome, {{user.first_name}}
               </a>
+
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li class="nav-item">
                   <a class="dropdown-item" id="profile" href="/profile"
@@ -70,8 +63,8 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="dropdown-item" id="settings " href="/settings"
-                    >Settings</a
+                  <a class="dropdown-item" id="rewards " href="/rewards"
+                    >Rewards</a
                   >
                 </li>
                 <li><hr class="dropdown-divider" /></li>
@@ -80,18 +73,43 @@
                 </li>
               </ul>
             </li>
-
-            {% else %}
-
-            <a class="nav-item nav-link" id="about" href="/about">About</a>
-            <a class="nav-item nav-link" id="login" href="/login">Login</a>
-            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-
-            {% endif %}
-          </div>
+          </ul>
         </div>
       </div>
     </nav>
+
+    {% else %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" id="about-us" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="login" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="sign-up" href="/sign-up">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% endif %}
 
     <!--flashing messages for success-->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
