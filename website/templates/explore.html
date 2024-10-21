@@ -1,0 +1,66 @@
+{% extends "base/base.html" %} {% block title %} Explore {% endblock %} {% block
+content%}
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<h1>explore page</h1>
+
+<button class="btn btn-primary" id="start">start</button>
+<button class="btn btn-primary" id="stop">stop</button>
+
+<div id="speech_data" data-value="hello"></div>
+
+<form action="/explore/result" method="post">
+  <p name="speech_data" id="speech_data">test</p>
+  <div class="mb-3">
+    <label for="text-data" class="form-label">Enter message here!</label>
+    <textarea class="form-control" name="text_data" rows="5"></textarea>
+  </div>
+  <input type="submit" id="submitButton" class="btn btn-primary" />
+</form>
+
+<script>
+  // record audio
+  var startButton = document.getElementById("start");
+  var stopButton = document.getElementById("stop");
+  var speech_data = document.getElementById("speech_data");
+
+  var recognition = new webkitSpeechRecognition();
+  recognition.lang = window.navigator.language;
+  recognition.interimResults = true;
+
+  startButton.addEventListener("click", () => {
+    recognition.start();
+  });
+  stopButton.addEventListener("click", () => {
+    recognition.stop();
+  });
+
+  recognition.addEventListener("result", (event) => {
+    const result = event.results[event.results.length - 1][0].transcript;
+    speech_data.textContent = result;
+  });
+
+  // send data to python
+  var submitButton = document.getElementById("submitButton");
+  submitButton.addEventListener("click", sendData);
+  function sendData() {
+    var speech_data = document.getElementById("speech_data").value;
+    console.log(speech_data);
+    $.ajax({
+      url: "/process",
+      type: "POST",
+      data: { data: speech_data },
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
+</script>
+
+{% endblock %}
