@@ -2,9 +2,9 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
-class Results (db.Model):
+class Note (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # results data, string max  = 100000 characters
+    # notes data, string max  = 100000 characters
     data = db.Column(db.String (100000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     # one-to-many relationship with User table
@@ -17,4 +17,4 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String (150), unique=True)
     password = db.Column(db.String (150))
     first_name = db.Column(db.String (150))
-    results = db.relationship('Results')
+    notes = db.relationship('Note')
