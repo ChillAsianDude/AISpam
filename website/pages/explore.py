@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
+import speech_recognition as sr
+import textblob
 
 explore_page= Blueprint ('explore_page', __name__, template_folder='/templates')
 
@@ -11,34 +13,34 @@ def explore ():
 @explore_page.route ('/explore/result', methods=['GET', 'POST'])
 @login_required
 def explore_result ():
+    data_received = {}       
     if request.method == 'POST':
-        final_data  = {}
-        # register data
-        text_data = request.form['text_data']
+        # receiving data
+        text_data = request.form.get('text_data')
         speech_data = request.form.get ('speech_data')
-        
-        print (speech_data)
+        audio_data = request.files ['audio_data']
+
+        #convert audio data to text
+        recognizer = sr.Recognizer()
+        audioFile = sr.AudioFile (audio_data)
+        with audioFile as source:
+            data = recognizer.record(source)
+        audio_data = recognizer.recognize_google (data, key=None)
+        # maybe can use google genai, would require api key to be kept in environment
 
         # append data to dictionary
-        final_data ["text"] = text_data
-        final_data ["speech"] = speech_data
-
-        # process data and generate response data
-        res_data = {}
-        import textblob
-        for data, content in final_data.items ():
-            if content != None:
-                analysis = textblob.TextBlob (content).sentiment
-                res_data [data] = {"polarity": analysis.polarity, "subjectivity": analysis.subjectivity}
+        data_received ["text"] = text_data
+        data_received ["speech"] = speech_data
+        data_received ["audio"] = audio_data
+    
+    # analysing data
+    analysis_data = {}
+    for data, content in data_received.items ():
+        if content == None or content != "":
+            analysis = textblob.TextBlob (content).sentiment
+            analysis_data [data] = {"polarity": analysis.polarity, "subjectivity": analysis.subjectivity}
 
         
-        print (res_data)
-        
-        return render_template ("explore_result.html",user=current_user,data=res_data)
-
-@explore_page.route ('/process', methods=['POST'])
-def process():
-    global data
-    data = request.form.get ('data')
-    print (data)
-    return data
+    return render_template ("explore_result.html",user=current_user,
+                            data_received=data_received, 
+                            analysis_data=analysis_data)
