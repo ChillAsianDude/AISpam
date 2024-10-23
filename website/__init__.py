@@ -19,7 +19,7 @@ def create_app ():
     from .pages.rewards import rewards_page
     from .pages.explore import explore_page
     from .pages.learning import learning_page
-    from .pages.profile import profile_page
+    from .pages.user_profile import profile_page
 
     # redirecting the user for when they are not logged in to their account
     login_manager = LoginManager()
@@ -33,6 +33,7 @@ def create_app ():
     app.register_blueprint (explore_page, url_prefix='/')
     app.register_blueprint (learning_page, url_prefix='/')
     app.register_blueprint (profile_page, url_prefix='/')
+
 
     from .models import User
 

@@ -4,4 +4,4 @@ app = create_app ()
 
 if __name__ == 'main':
     app.secret_key = 'BC3415'
-    app.run (debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

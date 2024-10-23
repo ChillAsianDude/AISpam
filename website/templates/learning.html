@@ -1,6 +1,38 @@
 {% extends "base/base.html" %} {% block title %} Learning {% endblock %} {%
 block content%}
 
-<h1>Learning page</h1>
+<h1>Learning Video</h1>
+<h1>Learning Video</h1>
+<div id="video-container">
+  <p>Video is being generated... Please wait.</p>
+</div>
+
+<script>
+  function checkVideoStatus() {
+    fetch('/video_status')
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'ready') {
+          // Update the page with the video element
+          document.getElementById('video-container').innerHTML = `
+            <video width="640" height="480" controls>
+              <source src="/static/learning_videos/learning_video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          `;
+        } else {
+          // Poll again after a delay if the video is not ready
+          setTimeout(checkVideoStatus, 5000); // Poll every 5 seconds
+        }
+      });
+  }
+
+  // Start polling
+  checkVideoStatus();
+</script>
+
+
+
 
 {% endblock %}
+

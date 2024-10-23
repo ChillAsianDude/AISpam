@@ -1,0 +1,41 @@
+import torch
+from diffusers import DiffusionPipeline, DPMSolverMultistepScheduler
+from diffusers.utils import export_to_video
+import os
+
+def generate_video(prompt: str, output_path: str):
+    """
+    Generates a video based on a given text prompt using the Hugging Face diffusion model.
+    """
+    print(f"Started generating video for prompt: {prompt}")
+    
+    # Load the pre-trained pipeline and force it to use CPU
+    pipe = DiffusionPipeline.from_pretrained(
+        "damo-vilab/text-to-video-ms-1.7b", torch_dtype=torch.float32  # Use float32 for CPU
+    )
+    
+    # Set up the scheduler for more efficient generation
+    pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
+    
+    # Since you're running on CPU, CPU offloading is irrelevant, so we don't need this.
+    # Use VAE slicing for memory optimization (it works for both CPU and GPU)
+    pipe.enable_vae_slicing()
+
+    # Ensure the entire pipeline is moved to the CPU
+    pipe.to("cpu")
+
+    # Generate the video frames on the CPU
+    video_frames = pipe(prompt).frames
+
+    # Save the generated video
+    export_to_video(video_frames, output_path)
+
+    print(f"Video generation completed. File saved at: {output_path}")
+    
+    return output_path
+
+
+if __name__ == "__main__":
+    output_path = "learning_video.mp4"
+    if not os.path.exists(output_path):
+        generate_video("A beautiful landscape with mountains", output_path)
