@@ -7,3 +7,5 @@ rewards_page = Blueprint ('rewards_page', __name__, template_folder='/templates'
 @login_required
 def rewards ():
     return render_template ("rewards.html", user=current_user)
+
+
