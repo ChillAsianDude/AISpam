@@ -3,4 +3,40 @@ content%}
 
 <h1>faq page</h1>
 
+<head>
+    <title>FAQ - TTT Chatbot</title>
+</head>
+<body>
+    <h1>Welcome to TTT's Scam FAQ</h1>
+    <p>Ask me about financial scams, and I'll help you stay safe!</p>
+    <input type="text" id="user-input" placeholder="Type your question here" />
+    <button onclick="askQuestion()">Ask TTT</button>
+    
+    <!-- Response div to display the chatbot's response -->
+    <div id="response"></div>
+
+    <!-- Step 1: Include Marked.js library to handle Markdown rendering on the frontend -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+    <script>
+        function askQuestion() {
+            const question = document.getElementById('user-input').value;
+            fetch('/faq/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question })
+            })
+            .then(response => response.json())
+                
+            .then(data => {
+                // Step 3: Use Marked.js to convert Markdown in the response to HTML
+                document.getElementById('response').innerHTML = marked.parse(data.response);
+            });
+        }
+    </script>
+</body>
+
 {% endblock %}

@@ -1,4 +1,71 @@
-{% extends "base/base.html" %} {% block title %} Profile {% endblock %} {% block
-content%}
-<h1>this is the profile page</h1>
+{% extends "base/base.html" %}
+{% block title %}Profile Page{% endblock %}
+{% block content %}
+<h1>Profile Page</h1>
+
+<div>
+    <h3>User Information</h3>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+</div>
+
+<!-- Display the saved avatar if it exists -->
+<div class="avatar-section">
+    <h5>Your Avatar</h5>
+    {% set avatar_filename = 'avatars/user_' ~ user.id ~ '_avatar.svg' %}
+    <img id="avatar-image" 
+         src="{{ url_for('static', filename=avatar_filename) }}" 
+         onerror="this.onerror=null; this.src='https://api.dicebear.com/9.x/lorelei/svg?seed=example';" 
+         alt="User Avatar" 
+         width="100" 
+         height="100" />
+    <br />
+    <input type="text" id="avatarSeed" placeholder="Enter a custom seed (e.g., your name)">
+    <select id="avatarStyle">
+        <option value="lorelei">Lorelei</option>
+        <option value="micah">Micah</option>
+        <option value="pixel-art">Pixel Art</option>
+        <option value="bottts">Bottts</option>
+        <option value="avataaars">Avataaars</option>
+    </select>
+    <button onclick="generateAvatar()">Generate New Avatar</button>
+    <button onclick="saveAvatar()">Save Avatar</button> 
+</div>
+
+
+<script>
+    // Generate a new avatar based on user input
+    function generateAvatar() {
+        const seed = document.getElementById("avatarSeed").value || "default";
+        const style = document.getElementById("avatarStyle").value;
+        
+        // Construct the avatar URL with chosen style and seed
+        const avatarUrl = `https://api.dicebear.com/9.x/${style}/svg?seed=${seed}`;
+        
+        // Update the displayed avatar
+        document.getElementById("avatar-image").src = avatarUrl;
+    }
+
+    // Save the currently displayed avatar by sending its URL to the backend
+    function saveAvatar() {
+        const avatarUrl = document.getElementById("avatar-image").src;
+
+        fetch('/save-avatar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ avatarUrl: avatarUrl })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Avatar saved successfully!");
+            } else {
+                alert("Failed to save avatar.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 {% endblock %}
