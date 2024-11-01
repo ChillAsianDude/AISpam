@@ -68,6 +68,7 @@ def texblob_predict (data_received):
 def gemini_predict (data_received):
     import google.generativeai as genai
     import os
+    
     # load genai model
     api_key = os.get_environ ('GEMINI_KEY')
     genai.configure (api_key=api_key)
