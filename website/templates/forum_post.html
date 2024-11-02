@@ -1,0 +1,246 @@
+{% extends "base/base.html" %}
+{% block title %} Scam Detector {% endblock %}
+{% block content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Scam Detector - Conversation Page</title>
+        <style>
+            /* General Styling */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            /* Header Section */
+            .conversation-header {
+                display: flex;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .conversation-header h1 {
+                font-size: 1.5em;
+                font-weight: 600;
+                color: #333;
+                margin-left: 10px;
+            }
+
+            .conversation-header a{
+                text-decoration: none;
+                color: inherit;
+            }
+
+            /* Conversation Section */
+            .conversation-thread {
+                margin-top: 20px;
+            }
+
+            .post {
+                display: flex;
+                padding: 20px 0;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .post-avatar {
+                margin-right: 15px;
+            }
+
+            .post-avatar img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+            }
+
+            .post-content {
+                flex: 1;
+            }
+
+            .post-author {
+                font-size: 1.1em;
+                font-weight: 600;
+                margin: 0;
+                color: #333;
+            }
+
+            .post-title {
+                font-weight: bold;
+                color: #333;
+                margin: 8px 0;
+            }
+
+            .post-date {
+                font-size: 0.85em;
+                color: #999;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .post-description {
+                margin-bottom: 10px;
+                color: #555;
+                line-height: 1.6;
+                font-size: 0.95em;
+            }
+
+            .post-description ul {
+                margin: 10px 0;
+                padding-left: 20px;
+                color: #333;
+            }
+
+            .post-description ul li {
+                list-style-type: disc;
+                margin-bottom: 5px;
+            }
+
+            .post-actions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 10px;
+                font-size: 0.9em;
+                color: #666;
+            }
+
+            .actions-left span {
+                margin-right: 15px;
+                color: #666;
+            }
+
+            .actions-right {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+                color: #666;
+            }
+
+            .actions-right .action-icon {
+                font-size: 1.2em;
+                cursor: pointer;
+            }
+
+            .arrow {
+                margin-left: 5px;
+                display: inline-block;
+                border: solid #333;
+                border-width: 0 3px 3px 0;
+                padding: 3px;
+                transform: rotate(135deg); /* Downward arrow */
+                transition: transform 0.2s;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="conversation-header">
+            <h1><a href="/forum/forum_topics/forum_scam_detect"><span class="arrow"></span> Conversation</a></h1>
+        </div>
+
+        <!-- Conversation Thread -->
+        <section class="conversation-thread">
+            <!-- Post 1 -->
+            <div class="post">
+                <div class="post-avatar">
+                    <img src="{{ url_for('static', filename='images/scammie.png') }}" alt="Scammie Avatar">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-author">Scammie</h2>
+                    <p class="post-title">Welcome 👋</p>
+                    <span class="post-date">29d</span>
+                    <p class="post-description">
+                        Welcome to the Scam Detection Community—we’re glad you’re here! This is a space to build a community with other enthusiastic individuals dedicated to scam awareness and prevention. Our team will also share the latest updates on scam trends and insights into how to stay safe online.
+                    </p>
+                    <p class="post-description">
+                        We encourage you to:
+                    <ul>
+                        <li>Ask questions about identifying potential scams</li>
+                        <li>Share your experiences with scams and how you avoided them</li>
+                        <li>Share helpful resources to educate others on scam prevention</li>
+                        <li>Show us your tips and tools for spotting scams, including phishing emails, fake websites, and suspicious messages</li>
+                    </ul>
+                    </p>
+                    <div class="post-actions">
+                        <div class="actions-left">
+                            <span>👍 12 Like</span>
+                            <span>💬 4 Comments</span>
+                        </div>
+                        <div class="actions-right">
+                            <span class="action-icon">🔖</span>
+                            <span class="action-icon">🔗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post">
+                <div class="post-avatar">
+                    <img src="{{ url_for('static', filename='images/diane_flores.webp') }}" alt="Diane Flores Avatar">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-author">Diane Flores</h2>
+                    <span class="post-date">March 25, 2020 at 5:01am</span>
+                    <p class="post-description">
+                        We sometimes experience scam attempts in various forms, and it’s challenging to find a consistent pattern for when they happen. However, a workaround that may help when identifying scam indicators is to <strong>refresh or rename elements</strong> that seem suspicious.
+                    </p>
+                    <p class="post-description">
+                        For example, if a suspicious email or link doesn’t immediately trigger security alerts, <strong>altering your approach</strong> (like hovering over links or searching key phrases) can reveal potential red flags.
+                    </p>
+                    <div class="post-actions">
+                        <div class="actions-left">
+                            <span>👍 12 Like</span>
+                            <span>💬 4 Comments</span>
+                        </div>
+                        <div class="actions-right">
+                            <span class="action-icon">🔖</span>
+                            <span class="action-icon">🔗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post">
+                <div class="post-avatar">
+                    <img src="{{ url_for('static', filename='images/albert_warren.webp') }}" alt="Albert Warren Avatar">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-author">Albert Warren</h2>
+                    <span class="post-date">March 25, 2020 at 2:57pm</span>
+                    <p class="post-description">
+                        I’ve also opened a similar ticket. And gotten the same response. We also see the inconsistent, intermittent dropping of previews.
+                    </p>
+                    <p class="post-description">
+                        One place I can find it consistently, though, is in Side-By-Side during a commit. I'm not sure when this began for us, but any commit, any arbortag, the side-by-side view shows the preview for this item doesn’t exist for the previous commit state.
+                    </p>
+                    <div class="post-actions">
+                        <div class="actions-left">
+                            <span>👍 12 Like</span>
+                            <span>💬 4 Comments</span>
+                        </div>
+                        <div class="actions-right">
+                            <span class="action-icon">🔖</span>
+                            <span class="action-icon">🔗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </body>
+    </html>
+{% endblock %}

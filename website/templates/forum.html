@@ -1,6 +1,186 @@
-{% extends "base/base.html" %} {% block title %} More {% endblock %} {% block
-content%}
+{% extends "base/base.html" %}
+{% block title %}More{% endblock %}
+{% block content %}
 
-<h1>forum page</h1>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>More</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 32px;
+                margin-top: 30px;
+            }
+
+            .search-bar {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .search-bar input {
+                width: 80%;
+                max-width: 1200px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 25px;
+                font-size: 16px;
+            }
+
+            .section {
+                margin: 40px auto;
+                max-width: 1200px;
+            }
+
+            .section-title {
+                font-size: 22px;
+                font-weight: bold;
+                margin: 0 20px;
+                color: #333; /* Change color as needed */
+                text-decoration: none; /* Removes underline */
+            }
+
+            .section-title a {
+                text-decoration: none;
+                color: inherit; /* Keeps the color the same as the surrounding text */
+            }
+
+            .cards-container {
+                display: flex;
+                overflow-x: auto;
+                padding: 10px 20px;
+                gap: 15px;
+            }
+
+            .card {
+                flex: 0 0 auto;
+                width: 160px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                overflow: hidden;
+                background-color: #fff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .card img {
+                width: 100%;
+                height: 90px;
+                object-fit: cover;
+                background-color: #e0e0e0; /* Placeholder color */
+            }
+
+            .card-content {
+                padding: 10px;
+                text-align: center;
+            }
+
+            .card-title {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                margin: 10px 0 5px;
+            }
+
+            /* Remove underline from card title links */
+            .card-title a {
+                text-decoration: none;
+                color: inherit; /* Keeps the color the same as the surrounding text */
+            }
+
+            /* Add this if it’s needed to style all links within cards consistently */
+            .card a {
+                text-decoration: none;
+            }
+
+            .card-members {
+                font-size: 12px;
+                color: #666;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .card-members img {
+                width: 14px;
+                height: 14px;
+            }
+        </style>
+    </head>
+    <body>
+
+
+    <h1>Hi Zhan Kang</h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Try searching topics like 'crypto'">
+    </div>
+
+    <!-- Scam Detection Initiatives Section -->
+    <div class="section">
+        <p class="section-title"><a id="trending page" href="/forum/forum_topics">Scam Detection Initiatives</a></p>
+        <div class="cards-container">
+            {% for tile in tiles_data %}
+                <div class="card">
+                    <img src="{{ url_for('static', filename=tile.image) }}" alt="{{ tile.title }}">
+                    <div class="card-content">
+                        <p class="card-title"><a href="/forum/forum_topics{{ tile.url }}">{{ tile.title }}</a></p>
+                        <div class="card-members">
+                            <img src="https://img.icons8.com/material-rounded/24/user.png" alt="Members">
+                            <span>{{ tile.members }} members</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Latest Scam Finds Section -->
+    <div class="section">
+        <p class="section-title">Latest Scam Finds</p>
+        <div class="cards-container">
+            {% for i in range(10) %}
+                <div class="card">
+                    <img src="path/to/image2.png" alt="Bank Impersonification">
+                    <div class="card-content">
+                        <p class="card-title">Bank Impersonification</p>
+                        <div class="card-members">
+                            <img src="https://img.icons8.com/material-rounded/24/user.png" alt="Members">
+                            <span>14,200 members</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Tips to Protect Yourself Section -->
+    <div class="section">
+        <p class="section-title">Tips to Protect Yourself</p>
+        <div class="cards-container">
+            {% for i in range(10) %}
+                <div class="card">
+                    <img src="path/to/image3.png" alt="Figma">
+                    <div class="card-content">
+                        <p class="card-title">Figma</p>
+                        <div class="card-members">
+                            <img src="https://img.icons8.com/material-rounded/24/user.png" alt="Members">
+                            <span>7,500 members</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    </body>
+    </html>
 
 {% endblock %}

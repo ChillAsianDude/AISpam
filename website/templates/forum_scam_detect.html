@@ -1,0 +1,200 @@
+{% extends "base/base.html" %}
+{% block title %} Scam Detector {% endblock %}
+{% block content %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Scam Detector - Forum Page</title>
+        <style>
+            /* General Styling */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #f9f9f9;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            /* Header Section */
+            .forum-header {
+                display: flex;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .header-icon img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+
+            .forum-header h1 {
+                font-size: 1.5em;
+                color: #333;
+                font-weight: 600;
+            }
+
+            /* Post Tiles */
+            .forum-posts {
+                margin-top: 20px;
+            }
+
+            .post-tile {
+                display: flex;
+                padding: 20px;
+                border-bottom: 1px solid #e0e0e0;
+                background-color: #fff;
+                align-items: flex-start;
+            }
+
+            .post-tile a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            .post-avatar img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-right: 15px;
+            }
+
+            .post-content {
+                flex: 1;
+            }
+
+            .post-author {
+                font-size: 1.2em;
+                font-weight: 600;
+                color: #333;
+            }
+
+            .post-title {
+                font-weight: bold;
+                margin: 5px 0;
+                color: #555;
+            }
+
+            .post-date {
+                font-size: 0.9em;
+                color: #999;
+                margin-bottom: 10px;
+            }
+
+            .post-description {
+                margin-bottom: 10px;
+                color: #666;
+                font-size: 0.95em;
+                line-height: 1.5;
+            }
+
+            .post-actions {
+                display: flex;
+                gap: 15px;
+                font-size: 0.9em;
+                color: #666;
+            }
+
+            .likes, .comments, .post-tag {
+                display: inline-block;
+            }
+
+            .post-tag {
+                background-color: #e0f7fa;
+                color: #00796b;
+                padding: 3px 8px;
+                border-radius: 5px;
+                font-size: 0.8em;
+            }
+
+            /* New Post Button */
+            .new-post-button {
+                text-align: right;
+                margin-top: 20px;
+            }
+
+            .new-post-button button {
+                background-color: #000;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 1em;
+                font-weight: 600;
+            }
+
+            .new-post-button button:hover {
+                background-color: #333;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="forum-header">
+            <div class="header-icon">
+                <a href="/forum/forum_topics"><img src="{{ url_for('static', filename='images/scam_detector.png') }}" alt="Bank Icon"></a>
+            </div>
+            <h1>Scam Detector</h1>
+        </header>
+
+        <!-- Post Tiles -->
+        <section class="forum-posts">
+            <!-- Post 1 -->
+            <div class="post-tile">
+                <div class="post-avatar">
+                    <img src="{{ url_for('static', filename='images/scammie.png') }}" alt="Scammie Avatar">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-author">Scammie</h2>
+                    <p class="post-title"><a id="post" href="/forum/forum_topics/forum_scam_detect/forum_post">Welcome 👋</a></p>
+                    <p class="post-date">29d</p>
+                    <p class="post-description">Welcome to the Scam Detection community—we’re glad you’re here. This is a space to build community with other enthusiastic and knowledgeable members...</p>
+                    <div class="post-actions">
+                        <span class="likes">👍 12</span>
+                        <span class="comments">💬 4</span>
+                        <span class="post-tag">#getting-started</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post-tile">
+                <div class="post-avatar">
+                    <img src="{{ url_for('static', filename='images/kathryn_williamson.webp') }}" alt="Kathryn Avatar">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-author">Kathryn Williamson</h2>
+                    <p class="post-title">Email Scams</p>
+                    <p class="post-date">23h</p>
+                    <p class="post-description">📢 Scam Alert: Impersonation Emails – Scammers are sending emails pretending to be from well-known companies (like Amazon, PayPal, or your bank)...</p>
+                    <div class="post-actions">
+                        <span class="likes">👍 10</span>
+                        <span class="comments">💬 23</span>
+                        <span class="post-tag">#feature-request</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more posts as needed -->
+        </section>
+
+        <!-- New Post Button -->
+        <div class="new-post-button">
+            <button>🖊️ New Post</button>
+        </div>
+    </div>
+    </body>
+    </html>
+
+
+{% endblock %}
