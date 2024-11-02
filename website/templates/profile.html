@@ -1,4 +1,221 @@
-{% extends "base/base.html" %} {% block title %} Profile {% endblock %} {% block
-content%}
-<h1>this is the profile page</h1>
+{% extends "base/base.html" %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+        <style>
+            .profile-container {
+                display: flex;
+                align-items: flex-start; /* Keeps items aligned at the top */
+                justify-content: center;
+                padding: 50px;
+                max-width: 1000px;
+                margin: auto;
+            }
+
+            .profile-image {
+                flex: 0 0 200px; /* Keeps image a fixed width */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 50px;
+            }
+
+            .profile-image img {
+                width: 100%;
+                object-fit: cover; /* This keeps the image proportionate */
+            }
+
+
+            /* Profile Information Styling */
+            .profile-details {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .profile-name {
+                font-size: 28px;
+                font-weight: bold;
+                color: #333;
+                margin: 0;
+            }
+
+            .status {
+                display: inline-block;
+                background-color: #4CAF50;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 12px;
+                font-size: 14px;
+                margin-top: 5px;
+            }
+
+            .scams-identified {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin: 10px 0;
+            }
+
+            .join-date {
+                color: #777;
+                font-size: 14px;
+            }
+
+            .stats, .forum-button, .profile-description {
+                width: 100%; /* Full width */
+                max-width: 600px; /* Set the maximum width as needed */
+            }
+
+            .stats {
+                display: flex;
+                gap: 10px;
+            }
+
+            .stat {
+                flex: 1; /* Each stat div takes up half the width of the .stats container */
+            }
+
+            .stat input {
+                width: 100%; /* Full width of the .stat container */
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 14px;
+                text-align: center;
+                box-sizing: border-box;
+            }
+
+            .stat label {
+                font-size: 14px;
+                margin-bottom: 5px;
+                color: #333;
+            }
+
+            /* Styling for the forum button to match the width */
+            .forum-button {
+                display: inline-block;
+                text-decoration: none; /* Removes the underline */
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .forum-button:hover {
+                background-color: #555;
+            }
+
+            .profile-description {
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 15px;
+                font-size: 14px;
+                color: #555;
+                width: 100%;
+                max-width: 600px; /* Matches the width with other elements */
+                margin-top: 15px;
+            }
+
+            .profile-description-title {
+                font-weight: bold;
+                cursor: pointer;
+                color: #333;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .arrow {
+                margin-left: 5px;
+                display: inline-block;
+                border: solid #333;
+                border-width: 0 3px 3px 0;
+                padding: 3px;
+                transform: rotate(45deg); /* Downward arrow */
+                transition: transform 0.2s;
+            }
+
+            .arrow.up {
+                transform: rotate(-135deg); /* Upward arrow */
+            }
+
+            .description-content {
+                display: none; /* Initially hidden */
+                margin-top: 10px;
+                color: #555;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="profile-container">
+        <!-- Profile Image (TO ADD IN SHANE'S AVATAR CREATOR) -->
+        <div class="profile-image">
+            <img src="{{ url_for('static', filename='images/vidgen_mar.svg') }}" alt="Profile Image"> <!-- Replace with actual image path -->
+        </div>
+
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <h1 class="profile-name">{{ user.first_name }}</h1>
+            <span class="status">Active</span>
+
+            <p class="scams-identified">Scams Identified: 199</p>
+            <p class="join-date">Joined Since 14 February 2024</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <label>Audio Files Uploaded</label>
+                    <input type="text" value="155" readonly>
+                </div>
+                <div class="stat">
+                    <label>Videos Completed</label>
+                    <input type="text" value="20" readonly>
+                </div>
+            </div>
+
+            <a  id="forum" href="/forum" class="forum-button">Go to Forum</a>
+
+            <!-- Profile Description with Dropdown -->
+            <div class="profile-description">
+                <span class="profile-description-title" onclick="toggleDescription()">
+                    Profile Description <span class="arrow"></span>
+                </span>
+                <p class="description-content">Got scammed twice in my life</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle the display of the profile description
+        function toggleDescription() {
+            const descriptionContent = document.querySelector('.description-content');
+            const arrow = document.querySelector('.arrow');
+
+            if (descriptionContent.style.display === "none" || descriptionContent.style.display === "") {
+                descriptionContent.style.display = "block";
+                arrow.classList.add('up'); // Add up class for upward arrow
+            } else {
+                descriptionContent.style.display = "none";
+                arrow.classList.remove('up'); // Remove up class for downward arrow
+            }
+        }
+
+        // Ensure the description is hidden on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector('.description-content').style.display = "none";
+        });
+    </script>
+
+    </body>
+    </html>
 {% endblock %}
