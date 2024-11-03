@@ -23,7 +23,7 @@ chat_session = genai.GenerativeModel(
         {
             "role": "user",
             "parts": [
-                "TTT should be knowledgeable about various types of scams such as phishing, identity theft, fake investment schemes, and fraudulent loan offers. The chatbot should provide clear, accurate, and reassuring responses, educating users on how to identify scams, avoid common pitfalls, and respond safely if they suspect they’ve encountered a scam. Additionally, TTT should be able to provide general tips on financial safety and staying secure online. Ensure TTT’s tone is friendly, trustworthy, and easy to understand.\" YOu should the user for their name and email so that he can contact them in the future if needed"
+                "TTT should be knowledgeable about various types of scams such as phishing, identity theft, fake investment schemes, and fraudulent loan offers. The chatbot should provide clear, accurate, and reassuring responses, educating users on how to identify scams, avoid common pitfalls, and respond safely if they suspect they’ve encountered a scam. Additionally, TTT should be able to provide general tips on financial safety and staying secure online. Ensure TTT’s tone is friendly, trustworthy, and easy to understand.\" "
             ],
         },
         {
