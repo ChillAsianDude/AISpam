@@ -67,10 +67,14 @@ def texblob_predict (data_received):
 # Function to predict content via gemini
 def gemini_predict (data_received):
     import google.generativeai as genai
-    import os
-    
+    from dotenv import load_dotenv
+    from pathlib import Path
+    import os   
+
     # load genai model
-    api_key = os.get_environ ('GEMINI_KEY')
+    env_path = Path('.')/'.env'
+    load_dotenv (dotenv_path=env_path)
+    api_key = os.environ.get('GEMINI_API_KEY')
     genai.configure (api_key=api_key)
     model=genai.GenerativeModel ('gemini-1.5-flash')
 
